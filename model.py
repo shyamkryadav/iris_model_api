@@ -28,6 +28,8 @@ X_test = sc.transform(X_test)  # Corrected: Apply transform on X_test
 classifier = RandomForestClassifier()
 classifier.fit(X_train, Y_train)
 
+
+# this file is communitate with the api
 # Save the model and scaler
 pickle.dump(classifier, open("model.pkl", "wb"))
 pickle.dump(sc, open("scaler.pkl", "wb"))  # Save scaler for use in API
