@@ -5,14 +5,6 @@ import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-# CORS(app, resources={r"/predict": {"origins": "http://localhost:4200"}})
-# CORS(app, resources={
-#     r"/predict": {"origins": "http://localhost:4200"},
-#     r"/upload": {"origins": "http://localhost:4200"}
-# })
-
-
-app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 # Load the model and scaler
@@ -20,11 +12,11 @@ model = pickle.load(open("model.pkl", "rb"))
 scaler = pickle.load(open("scaler.pkl", "rb"))
 
 # Configure the upload folder and allowed extensions
-UPLOAD_FOLDER = 'uploads'
+UPLOAD_FOLDER = os.path.join(os.path.dirname(__file__), 'images')  # Path to 'images' folder
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-# Ensure the upload folder exists
+# Ensure the 'images' folder exists
 if not os.path.exists(app.config['UPLOAD_FOLDER']):
     os.makedirs(app.config['UPLOAD_FOLDER'])
 
@@ -45,7 +37,8 @@ def fileUpload():
             filename = secure_filename(f.filename)
             if allowedFile(filename):
                 try:
-                    f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    f.save(file_path)
                     responses.append({"name": filename, "status": "success"})
                 except Exception as e:
                     responses.append({"name": filename, "status": "error", "error": str(e)})

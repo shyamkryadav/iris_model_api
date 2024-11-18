@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "iris_model_api",
+			"path": "."
+		},
+		{
+			"name": "img",
+			"path": "../../../ProjectPrep/AiModel/img"
+		}
+	],
+	"settings": {}
+}
