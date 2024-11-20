@@ -52,7 +52,7 @@ def extract_fields(text):
     postal = re.search(r'पत्र संख्या\s*[:|।]?\s*([A-Za-z0-9]+[-]?[A-Za-z0-9]*)', text)
     pradesh = re.search(r'प्रदेश\s*न\.?\s*\d+', text)
     title = re.search(r'विषय\s*[:|।]?\s*(.*?)\s*(?=\n|$)', text)
-    desc = text[:300]
+    desc = text
     date_nepali = re.search(r'मिति[:|।]?\s*(\d{4}\d{2}\d{2})', text)
     date_other = re.search(r'मिति[:|।]?\s*(\d{4}\d{2}\.\d{2})', text)
     date = date_nepali.group(1) if date_nepali else (date_other.group(1) if date_other else 'Not found')
